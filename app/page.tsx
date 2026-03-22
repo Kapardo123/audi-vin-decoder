@@ -301,64 +301,102 @@ export default function Home() {
                 </div>
 
                 {/* PR Decoder - High Precision Module */}
-                <Card className="bg-zinc-900/20 backdrop-blur-3xl border border-white/5 rounded-[2.5rem] overflow-hidden shadow-2xl relative">
+                <Card className="bg-zinc-900/20 backdrop-blur-3xl border border-white/5 rounded-[2.5rem] overflow-hidden shadow-2xl relative group">
                   <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#c00] to-transparent"></div>
-                  <CardHeader className="p-10 pb-4">
+                  
+                  {/* Service Sticker Background Pattern */}
+                  <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
+
+                  <CardHeader className="p-10 pb-4 relative z-10">
                     <div className="flex items-center justify-between">
                       <div className="space-y-1">
-                        <CardTitle className="text-3xl font-black italic uppercase tracking-tighter text-white">Moduł Wyposażenia PR</CardTitle>
-                        <CardDescription className="text-zinc-600 text-xs font-black uppercase tracking-widest">Weryfikacja bazy VAG Precision Data</CardDescription>
+                        <div className="flex items-center gap-2 mb-2">
+                          <Badge className="bg-[#c00] text-[8px] font-black px-2 py-0">VAG-7741</Badge>
+                          <span className="text-[10px] text-zinc-500 font-black uppercase tracking-[0.2em]">Service Protocol</span>
+                        </div>
+                        <CardTitle className="text-3xl font-black italic uppercase tracking-tighter text-white">Wlepka Serwisowa (Kody PR)</CardTitle>
+                        <CardDescription className="text-zinc-600 text-xs font-black uppercase tracking-widest italic">Odkoduj pełne wyposażenie fabryczne</CardDescription>
                       </div>
-                      <div className="w-12 h-12 rounded-2xl bg-[#c00]/10 flex items-center justify-center text-[#c00]">
-                        <Settings size={24} className="animate-[spin_4s_infinite_linear]" />
+                      <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-zinc-500 group-hover:text-[#c00] transition-colors shadow-xl">
+                        <Database size={28} />
                       </div>
                     </div>
                   </CardHeader>
-                  <CardContent className="p-10 pt-6">
+                  <CardContent className="p-10 pt-6 relative z-10">
                     <div className="flex flex-col md:flex-row gap-4 mb-10">
-                      <div className="relative flex-1 group">
-                        <div className="absolute inset-0 bg-[#c00]/20 blur-xl opacity-0 group-focus-within:opacity-100 transition-opacity"></div>
+                      <div className="relative flex-1 group/input">
+                        <div className="absolute inset-0 bg-[#c00]/10 blur-2xl opacity-0 group-focus-within/input:opacity-100 transition-opacity"></div>
                         <Input
                           placeholder="Wpisz kody (np. 1BE, 9VS, Q1D)..."
-                          className="bg-zinc-950/60 border-white/10 h-16 text-white placeholder:text-zinc-800 font-black font-mono text-xl pl-6 rounded-2xl relative z-10 focus:border-[#c00]/50 transition-all"
+                          className="bg-zinc-950/80 border-white/5 h-20 text-white placeholder:text-zinc-800 font-black font-mono text-2xl pl-8 rounded-[1.5rem] relative z-10 focus:border-[#c00]/30 focus:ring-0 transition-all shadow-2xl"
                           value={prInput}
                           onChange={(e) => setPrInput(e.target.value.toUpperCase())}
                         />
+                        <div className="absolute right-6 top-1/2 -translate-y-1/2 z-20 text-zinc-800 font-black italic text-xs pointer-events-none">
+                          PR-CODE INPUT
+                        </div>
                       </div>
-                      <Button onClick={handlePrDecode} className="h-16 px-10 bg-zinc-100 hover:bg-white text-black font-black uppercase italic tracking-tighter transition-all rounded-2xl active:scale-95 shadow-xl">
-                        ANALIZUJ WYPOSAŻENIE
+                      <Button 
+                        onClick={handlePrDecode} 
+                        className="h-20 px-12 bg-white hover:bg-[#c00] hover:text-white text-black font-black uppercase italic tracking-tighter transition-all rounded-[1.5rem] active:scale-95 shadow-[0_10px_30px_-10px_rgba(255,255,255,0.2)]"
+                      >
+                        DEKODUJ SPECYFIKACJĘ
                       </Button>
                     </div>
 
                     <AnimatePresence mode="wait">
                       {decodedPrs.length > 0 ? (
                         <motion.div 
-                          initial={{ opacity: 0, height: 0 }}
-                          animate={{ opacity: 1, height: "auto" }}
-                          exit={{ opacity: 0, height: 0 }}
-                          className="rounded-2xl border border-white/5 bg-black/40 overflow-hidden shadow-inner"
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          className="relative"
                         >
-                          <Table>
-                            <TableHeader className="bg-zinc-900/50">
-                              <TableRow className="border-white/5 hover:bg-transparent">
-                                <TableHead className="w-[120px] text-zinc-600 font-black uppercase tracking-widest text-[10px] py-6 pl-8">Kod Systemowy</TableHead>
-                                <TableHead className="text-zinc-600 font-black uppercase tracking-widest text-[10px] py-6">Specyfikacja Opcji</TableHead>
-                              </TableRow>
-                            </TableHeader>
-                            <TableBody>
-                              {decodedPrs.map((item, idx) => (
-                                <TableRow key={idx} className="border-white/5 hover:bg-white/[0.02] transition-colors group/row">
-                                  <TableCell className="font-mono text-[#c00] font-black text-xl py-6 pl-8">{item.code}</TableCell>
-                                  <TableCell className="text-zinc-300 font-bold py-6 text-base group-hover/row:text-white transition-colors">{item.desc}</TableCell>
-                                </TableRow>
-                              ))}
-                            </TableBody>
-                          </Table>
+                          {/* Service Sticker Look */}
+                          <div className="rounded-[2rem] border border-white/10 bg-zinc-950/50 overflow-hidden shadow-inner backdrop-blur-md">
+                            <div className="bg-zinc-900/80 px-8 py-4 border-b border-white/5 flex justify-between items-center">
+                              <span className="text-[9px] font-black text-zinc-500 uppercase tracking-[0.3em]">Authentication: SUCCESSFUL</span>
+                              <span className="text-[9px] font-black text-[#c00] uppercase tracking-[0.3em]">Audi Genuine Parts & Specs</span>
+                            </div>
+                            <div className="p-2">
+                              <Table>
+                                <TableBody>
+                                  {decodedPrs.map((item, idx) => (
+                                    <TableRow key={idx} className="border-white/5 hover:bg-[#c00]/5 transition-all group/row">
+                                      <TableCell className="w-[120px] py-6 pl-8">
+                                        <div className="flex flex-col">
+                                          <span className="text-[8px] text-zinc-600 font-black uppercase mb-1">Kod PR</span>
+                                          <span className="font-mono text-[#c00] font-black text-2xl tracking-tighter">{item.code}</span>
+                                        </div>
+                                      </TableCell>
+                                      <TableCell className="py-6">
+                                        <div className="flex flex-col">
+                                          <span className="text-[8px] text-zinc-600 font-black uppercase mb-1">Opis Wyposażenia</span>
+                                          <span className="text-zinc-200 font-bold text-lg group-hover/row:text-white transition-colors">{item.desc}</span>
+                                        </div>
+                                      </TableCell>
+                                      <TableCell className="text-right pr-8">
+                                        <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center opacity-0 group-hover/row:opacity-100 transition-opacity">
+                                          <CheckCircle2 size={14} className="text-green-500" />
+                                        </div>
+                                      </TableCell>
+                                    </TableRow>
+                                  ))}
+                                </TableBody>
+                              </Table>
+                            </div>
+                          </div>
                         </motion.div>
                       ) : (
-                        <div className="text-center py-20 border-2 border-dashed border-white/5 rounded-[2rem] bg-zinc-950/20">
-                          <Database className="w-12 h-12 text-zinc-800 mx-auto mb-6" />
-                          <p className="text-zinc-600 font-black uppercase tracking-[0.2em] text-xs">Oczekiwanie na wprowadzenie kodów z wlepki serwisowej</p>
+                        <div className="text-center py-24 border-2 border-dashed border-white/5 rounded-[2.5rem] bg-zinc-950/20 group/empty hover:bg-zinc-950/30 transition-colors">
+                          <motion.div
+                            animate={{ rotate: [0, 10, -10, 0] }}
+                            transition={{ duration: 5, repeat: Infinity }}
+                          >
+                            <Database className="w-16 h-16 text-zinc-800 mx-auto mb-8 group-hover/empty:text-zinc-700 transition-colors" />
+                          </motion.div>
+                          <p className="text-zinc-600 font-black uppercase tracking-[0.3em] text-[10px] max-w-[280px] mx-auto leading-relaxed">
+                            Wprowadź 3-znakowe kody z naklejki serwisowej, aby uzyskać pełny wgląd w duszę pojazdu
+                          </p>
                         </div>
                       )}
                     </AnimatePresence>
