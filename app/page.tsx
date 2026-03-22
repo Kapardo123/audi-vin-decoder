@@ -52,15 +52,44 @@ export default function Home() {
     setLoading(true);
     setError("");
     
-    // Simulate high-tech scanning delay
-    await new Promise(r => setTimeout(r, 1200));
-    const data = await decodeVin(vin);
-    setResult(data);
-    setLoading(false);
-    
-    setTimeout(() => {
-      resultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 100);
+    try {
+      const data = await decodeVin(vin);
+      if (data.error) {
+        setError(data.error);
+        setLoading(false);
+        return;
+      }
+      setResult(data);
+      
+      // Better scroll logic
+      setTimeout(() => {
+        const element = document.getElementById('results-section');
+        if (element) {
+          const offset = 100;
+          const bodyRect = document.body.getBoundingClientRect().top;
+          const elementRect = element.getBoundingClientRect().top;
+          const elementPosition = elementRect - bodyRect;
+          const offsetPosition = elementPosition - offset;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+        }
+      }, 100);
+    } catch (err) {
+      setError("Wystąpił nieoczekiwany błąd.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const resetSearch = () => {
+    setResult(null);
+    setVin("");
+    setPrInput("");
+    setDecodedPrs([]);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handlePrDecode = () => {
@@ -180,30 +209,41 @@ export default function Home() {
                   <Zap className="w-6 h-6 fill-current" />
                 </div>
                 <Input
-                  placeholder="Wpisz 17-znakowy numer VIN..."
-                  className="bg-transparent border-none text-2xl h-20 focus-visible:ring-0 placeholder:text-zinc-800 font-black tracking-widest text-white italic uppercase"
+                  placeholder={result ? "Zresetuj, aby wpisać nowy VIN..." : "Wpisz 17-znakowy numer VIN..."}
+                  className="bg-transparent border-none text-2xl h-20 focus-visible:ring-0 placeholder:text-zinc-800 font-black tracking-widest text-white italic uppercase disabled:opacity-50"
                   value={vin}
                   onChange={(e) => setVin(e.target.value.toUpperCase())}
                   maxLength={17}
+                  disabled={loading || !!result}
                 />
               </div>
-              <Button 
-                type="submit" 
-                className="w-full md:w-auto h-20 px-12 bg-[#c00] hover:bg-[#a00] text-white font-black text-xl rounded-[1.8rem] transition-all relative overflow-hidden group/btn shadow-[0_10px_20px_-10px_rgba(192,0,0,0.5)] active:scale-95" 
-                disabled={loading}
-              >
-                <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.2)_50%,transparent_75%)] bg-[length:250%_250%] animate-[shimmer_3s_infinite] opacity-0 group-hover/btn:opacity-100 transition-opacity"></div>
-                {loading ? (
-                  <div className="flex items-center gap-3">
-                    <Activity className="animate-spin w-6 h-6" />
-                    Analiza...
-                  </div>
-                ) : (
-                  <div className="flex items-center gap-3 italic">
-                    DEKODUJ <ArrowRight className="w-6 h-6 group-hover/btn:translate-x-2 transition-transform" />
-                  </div>
-                )}
-              </Button>
+              {result ? (
+                <Button 
+                  type="button"
+                  onClick={resetSearch}
+                  className="w-full md:w-auto h-20 px-12 bg-zinc-800 hover:bg-zinc-700 text-white font-black text-xl rounded-[1.8rem] transition-all active:scale-95"
+                >
+                  NOWY VIN
+                </Button>
+              ) : (
+                <Button 
+                  type="submit" 
+                  className="w-full md:w-auto h-20 px-12 bg-[#c00] hover:bg-[#a00] text-white font-black text-xl rounded-[1.8rem] transition-all relative overflow-hidden group/btn shadow-[0_10px_20px_-10px_rgba(192,0,0,0.5)] active:scale-95" 
+                  disabled={loading}
+                >
+                  <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.2)_50%,transparent_75%)] bg-[length:250%_250%] animate-[shimmer_3s_infinite] opacity-0 group-hover/btn:opacity-100 transition-opacity"></div>
+                  {loading ? (
+                    <div className="flex items-center gap-3">
+                      <Activity className="animate-spin w-6 h-6" />
+                      Analiza...
+                    </div>
+                  ) : (
+                    <div className="flex items-center gap-3 italic">
+                      DEKODUJ <ArrowRight className="w-6 h-6 group-hover/btn:translate-x-2 transition-transform" />
+                    </div>
+                  )}
+                </Button>
+              )}
             </div>
 
             {/* Scanning Line Animation */}
