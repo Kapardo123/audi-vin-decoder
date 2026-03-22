@@ -28,8 +28,8 @@ export default function Home() {
   
   const resultsRef = useRef<HTMLDivElement>(null);
   const { scrollY } = useScroll();
-  const opacity = useTransform(scrollY, [0, 200], [1, 0]);
-  const scale = useTransform(scrollY, [0, 200], [1, 0.95]);
+  const opacity = useTransform(scrollY, [0, 500], [1, 0.8]); // Prawie nie znika, tylko lekki efekt głębi
+  const scale = useTransform(scrollY, [0, 500], [1, 1]); // Brak zmiany skali dla pełnej stabilności
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -65,7 +65,7 @@ export default function Home() {
       setTimeout(() => {
         const element = document.getElementById('results-section');
         if (element) {
-          const offset = 100;
+          const offset = 80; // Mniejszy offset, żeby widzieć więcej kontekstu
           const bodyRect = document.body.getBoundingClientRect().top;
           const elementRect = element.getBoundingClientRect().top;
           const elementPosition = elementRect - bodyRect;
@@ -181,14 +181,14 @@ export default function Home() {
               <span className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400 group-hover:text-zinc-200 transition-colors">Digital Vehicle Diagnostic 2.0</span>
             </div>
             
-            <h1 className="text-7xl md:text-[9rem] font-black tracking-[-0.04em] mb-8 italic uppercase leading-[0.85] text-white">
+            <h1 className="text-5xl md:text-7xl font-black tracking-[-0.04em] mb-6 italic uppercase leading-[0.9] text-white">
               Przewaga <br />
               <span className="bg-clip-text text-transparent bg-gradient-to-b from-[#c00] to-[#600] drop-shadow-[0_10px_30px_rgba(192,0,0,0.4)]">Dzięki VIN</span>
             </h1>
             
-            <p className="text-lg md:text-xl text-zinc-400 max-w-2xl mx-auto mb-16 leading-relaxed font-medium tracking-tight">
+            <p className="text-lg md:text-xl text-zinc-300 max-w-2xl mx-auto mb-16 leading-relaxed font-semibold tracking-tight">
               Poznaj pełną historię i specyfikację swojego pojazdu. 
-              <span className="text-white ml-2">Vorsprung durch Technik w cyfrowym wydaniu.</span>
+              <span className="text-white ml-2 drop-shadow-sm">Vorsprung durch Technik w cyfrowym wydaniu.</span>
             </p>
           </motion.div>
 
