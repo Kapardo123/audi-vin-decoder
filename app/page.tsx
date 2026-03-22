@@ -153,13 +153,13 @@ export default function Home() {
             </div>
             
             <h1 className="text-7xl md:text-[9rem] font-black tracking-[-0.04em] mb-8 italic uppercase leading-[0.85] text-white">
-              Skanuj <br />
-              <span className="bg-clip-text text-transparent bg-gradient-to-b from-[#c00] to-[#600] drop-shadow-[0_10px_30px_rgba(192,0,0,0.4)]">Tożsamość</span>
+              Przewaga <br />
+              <span className="bg-clip-text text-transparent bg-gradient-to-b from-[#c00] to-[#600] drop-shadow-[0_10px_30px_rgba(192,0,0,0.4)]">Dzięki VIN</span>
             </h1>
             
-            <p className="text-lg md:text-xl text-zinc-500 max-w-2xl mx-auto mb-16 leading-relaxed font-medium tracking-tight">
-              Precyzyjne dekodowanie specyfikacji fabrycznej i kodów PR dla Twojego Audi. 
-              <span className="text-zinc-300 ml-2">Standard profesjonalnych serwisów teraz w Twojej przeglądarce.</span>
+            <p className="text-lg md:text-xl text-zinc-400 max-w-2xl mx-auto mb-16 leading-relaxed font-medium tracking-tight">
+              Poznaj pełną historię i specyfikację swojego pojazdu. 
+              <span className="text-white ml-2">Vorsprung durch Technik w cyfrowym wydaniu.</span>
             </p>
           </motion.div>
 
@@ -292,9 +292,9 @@ export default function Home() {
                         <item.icon size={28} />
                       </div>
                       <div>
-                        <p className="text-[10px] text-zinc-600 uppercase font-black tracking-widest mb-1">{item.label}</p>
+                        <p className="text-[10px] text-zinc-400 font-black uppercase tracking-widest mb-1">{item.label}</p>
                         <p className="text-xl font-black text-white italic tracking-tight">{item.val || "N/A"}</p>
-                        {item.sub && <p className="text-[10px] text-zinc-700 font-black uppercase mt-1 tracking-wider">{item.sub}</p>}
+                        {item.sub && <p className="text-[10px] text-zinc-500 font-black uppercase mt-1 tracking-wider">{item.sub}</p>}
                       </div>
                     </motion.div>
                   ))}
@@ -315,9 +315,9 @@ export default function Home() {
                           <span className="text-[10px] text-zinc-500 font-black uppercase tracking-[0.2em]">Service Protocol</span>
                         </div>
                         <CardTitle className="text-3xl font-black italic uppercase tracking-tighter text-white">Wlepka Serwisowa (Kody PR)</CardTitle>
-                        <CardDescription className="text-zinc-600 text-xs font-black uppercase tracking-widest italic">Odkoduj pełne wyposażenie fabryczne</CardDescription>
+                        <CardDescription className="text-zinc-400 text-xs font-black uppercase tracking-widest italic">Odkoduj pełne wyposażenie fabryczne</CardDescription>
                       </div>
-                      <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-zinc-500 group-hover:text-[#c00] transition-colors shadow-xl">
+                      <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-zinc-400 group-hover:text-[#c00] transition-colors shadow-xl">
                         <Database size={28} />
                       </div>
                     </div>
@@ -328,11 +328,11 @@ export default function Home() {
                         <div className="absolute inset-0 bg-[#c00]/10 blur-2xl opacity-0 group-focus-within/input:opacity-100 transition-opacity"></div>
                         <Input
                           placeholder="Wpisz kody (np. 1BE, 9VS, Q1D)..."
-                          className="bg-zinc-950/80 border-white/5 h-20 text-white placeholder:text-zinc-800 font-black font-mono text-2xl pl-8 rounded-[1.5rem] relative z-10 focus:border-[#c00]/30 focus:ring-0 transition-all shadow-2xl"
+                          className="bg-zinc-950/80 border-white/5 h-20 text-white placeholder:text-zinc-700 font-black font-mono text-2xl pl-8 rounded-[1.5rem] relative z-10 focus:border-[#c00]/30 focus:ring-0 transition-all shadow-2xl"
                           value={prInput}
                           onChange={(e) => setPrInput(e.target.value.toUpperCase())}
                         />
-                        <div className="absolute right-6 top-1/2 -translate-y-1/2 z-20 text-zinc-800 font-black italic text-xs pointer-events-none">
+                        <div className="absolute right-6 top-1/2 -translate-y-1/2 z-20 text-zinc-600 font-black italic text-xs pointer-events-none">
                           PR-CODE INPUT
                         </div>
                       </div>
@@ -354,7 +354,7 @@ export default function Home() {
                           {/* Service Sticker Look */}
                           <div className="rounded-[2rem] border border-white/10 bg-zinc-950/50 overflow-hidden shadow-inner backdrop-blur-md">
                             <div className="bg-zinc-900/80 px-8 py-4 border-b border-white/5 flex justify-between items-center">
-                              <span className="text-[9px] font-black text-zinc-500 uppercase tracking-[0.3em]">Authentication: SUCCESSFUL</span>
+                              <span className="text-[9px] font-black text-zinc-400 uppercase tracking-[0.3em]">Authentication: SUCCESSFUL</span>
                               <span className="text-[9px] font-black text-[#c00] uppercase tracking-[0.3em]">Audi Genuine Parts & Specs</span>
                             </div>
                             <div className="p-2">
@@ -364,13 +364,13 @@ export default function Home() {
                                     <TableRow key={idx} className="border-white/5 hover:bg-[#c00]/5 transition-all group/row">
                                       <TableCell className="w-[120px] py-6 pl-8">
                                         <div className="flex flex-col">
-                                          <span className="text-[8px] text-zinc-600 font-black uppercase mb-1">Kod PR</span>
+                                          <span className="text-[8px] text-zinc-500 font-black uppercase mb-1">Kod PR</span>
                                           <span className="font-mono text-[#c00] font-black text-2xl tracking-tighter">{item.code}</span>
                                         </div>
                                       </TableCell>
                                       <TableCell className="py-6">
                                         <div className="flex flex-col">
-                                          <span className="text-[8px] text-zinc-600 font-black uppercase mb-1">Opis Wyposażenia</span>
+                                          <span className="text-[8px] text-zinc-500 font-black uppercase mb-1">Opis Wyposażenia</span>
                                           <span className="text-zinc-200 font-bold text-lg group-hover/row:text-white transition-colors">{item.desc}</span>
                                         </div>
                                       </TableCell>
@@ -392,9 +392,9 @@ export default function Home() {
                             animate={{ rotate: [0, 10, -10, 0] }}
                             transition={{ duration: 5, repeat: Infinity }}
                           >
-                            <Database className="w-16 h-16 text-zinc-800 mx-auto mb-8 group-hover/empty:text-zinc-700 transition-colors" />
+                            <Database className="w-16 h-16 text-zinc-700 mx-auto mb-8 group-hover/empty:text-zinc-600 transition-colors" />
                           </motion.div>
-                          <p className="text-zinc-600 font-black uppercase tracking-[0.3em] text-[10px] max-w-[280px] mx-auto leading-relaxed">
+                          <p className="text-zinc-400 font-black uppercase tracking-[0.3em] text-[10px] max-w-[280px] mx-auto leading-relaxed">
                             Wprowadź 3-znakowe kody z naklejki serwisowej, aby uzyskać pełny wgląd w duszę pojazdu
                           </p>
                         </div>
